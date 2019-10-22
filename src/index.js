@@ -13,7 +13,7 @@ const setValue = payload => ({
 //Reducer
 const reducer = (state = 0, action) => {
   if (action.type === "SET_VALUE") {
-    return 20;
+    return parseInt(state, 10) + 10;
   }
   return state;
 };
