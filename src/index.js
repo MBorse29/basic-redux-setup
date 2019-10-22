@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./styles.css";
-import { createStore } from "redux";
+import { createStore, combineReducers } from "redux";
 import { Provider, connect } from "react-redux";
 
 // Action creators
@@ -13,23 +13,35 @@ const setValue = payload => ({
 //Reducer
 const reducer = (state = 0, action) => {
   if (action.type === "SET_VALUE") {
-    return action.payload;
+    return 20;
   }
   return state;
 };
 
-const store = createStore(reducer);
+const store = createStore(combineReducers({ value: reducer }));
 
-function App(props) {
-  console.log(props);
+function App({ setValue, value }) {
   return (
     <div>
+      <div>{value}</div>
+      <br />
       <div className="App">Hi there!</div>
+      <br />
+      <button
+        onClick={() => {
+          setValue();
+        }}
+      >
+        Click me
+      </button>
     </div>
   );
 }
 
-App = connect(state => ({ ...state }))(App);
+App = connect(
+  state => ({ ...state }),
+  { setValue }
+)(App);
 
 function Root() {
   return (
